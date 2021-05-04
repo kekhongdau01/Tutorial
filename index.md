@@ -15,7 +15,7 @@ Example:
 "Hello, how are you?"
 --> ["Hello",",","how","are","you","?"]
 
-![Bag of words training](kekhongdau01/Tutorial/bag of word.png)
+
 
 ### Stemming
 Generate the root form of the words by removing the suffix of the words which will help minimizing words.
@@ -40,7 +40,7 @@ Input contain two sentence "Hello, how are you doing?"(Greeting),"Bye, see you l
 
 All words:["hello","how","are","you","doing","bye","see","late"]
 
-
+![Bag of words training](kekhongdau01/Tutorial/bag of word.png)
 
 
 
@@ -51,7 +51,8 @@ Whatever you prefer (e.g. `conda` or `venv`)
 ```console
 mkdir myproject
 $ cd myproject
-$ python3 -m venv venv
+$ python3 -m venv venv![Bag of word](https://user-images.githubusercontent.com/30191617/117074141-936a0d80-acf8-11eb-84b0-dcc819148e82.png)
+
 ```
 
 ### Save/load model and implement the chat
