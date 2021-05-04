@@ -15,6 +15,8 @@ Example:
 "Hello, how are you?"
 --> ["Hello",",","how","are","you","?"]
 
+![Bag of words training](kekhongdau01/Tutorial/bag of word.png)
+
 ### Stemming
 Generate the root form of the words by removing the suffix of the words which will help minimizing words.
 
