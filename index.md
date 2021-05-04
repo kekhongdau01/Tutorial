@@ -1,5 +1,6 @@
 ### Creating a bot-chat to recommend food tutorial
-*Theory and NLP concenpt
+
+*Theory and NLP concenpt:
   *Stemming
   *Tokenization
   *Bag of words
