@@ -8,6 +8,39 @@ Simple chatbot implementation with PyTorch.
 
 
 ## NLP Theory and Concept
+### Tokenization
+Tokenization is one of the first steps in NLP, and it’s the task of splitting a sequence of text into units with semantic meaning.The sentence would be seperate to an array with couple of string which would be easier to analyze.
+
+Example:
+"Hello, how are you?"
+--> ["Hello",",","how","are","you","?"]
+
+### Stemming
+Generate the root form of the words by removing the suffix of the words which will help minimizing words.
+
+Example:
+This was not the good idea after we investivate the case.
+--> Thi wa not the good idea afte we invest the case
+
+Stemming can lose the actual meaning of the words in some case.
+
+Example:
+"Universe","university"
+--> ["univers","univers"]
+
+### Bag of words
+Bag of words is a Natural Language Processing technique of text modelling. Because process the string is not a good idea for computer than we have to change them to quantitive element which would be easier for computer. Bag of words is a basically algorithm to transfer string to vector.
+
+To do the bag of words, we have to collect all of the words in the input and put all the words in an array by tokenization.
+
+For example:
+Input contain two sentence "Hello, how are you doing?"(Greeting),"Bye, see you later."(Goodbye)
+
+All words:["hello","how","are","you","doing","bye","see","late"]
+
+
+
+
 
 ## Create Training data
 
