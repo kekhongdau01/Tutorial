@@ -31,7 +31,7 @@ Example:
 --> ["univers","univers"]
 
 ### Bag of words
-Bag of words is a Natural Language Processing technique of text modelling. Because process the string is not a good idea for computer than we have to change them to quantitive element which would be easier for computer. Bag of words is a basically algorithm to transfer string to vector.
+Bag of words is a Natural Language Processing technique of text modelling. Because process the string is not a good idea for computer then we have to change them to quantitive element which would be easier for computer. Bag of words is a basically algorithm to transfer string to vector.
 
 To do the bag of words, we have to collect all of the words in the input and put all the words in an array by tokenization.
 
