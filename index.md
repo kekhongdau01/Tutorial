@@ -1,3 +1,8 @@
 ### Creating a bot-chat to recommend food tutorial
-##Step 1 
-##Step 2
+*Theory and NLP concenpt
+  *Stemming
+  *Tokenization
+  *Bag of words
+*Create training data
+*Pytorch model and training
+*Save/load model and implement the chat
