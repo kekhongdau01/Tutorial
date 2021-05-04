@@ -40,8 +40,7 @@ Input contain two sentence "Hello, how are you doing?"(Greeting),"Bye, see you l
 
 All words:["hello","how","are","you","doing","bye","see","late"]
 
-
-<img src="kekhongdau01/Tutorial/bag of word.png" alt="hi" class="inline"/>
+![bag of word](bow.png)
 
 
 
