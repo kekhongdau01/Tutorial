@@ -42,9 +42,14 @@ All words:["hello","how","are","you","doing","bye","see","late"]
 
 ![bag of word](https://github.com/kekhongdau01/Tutorial/blob/main/Bow.png)
 
+This is our pipeline for the preparation step:
+
+![Pipeline](https://github.com/kekhongdau01/Tutorial/blob/main/Pipeline.png)
 
 
-## Create Training data
+### Create Training data
+
+
 
 ### Pytorch model
 Whatever you prefer (e.g. `conda` or `venv`)
