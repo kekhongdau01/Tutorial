@@ -52,7 +52,6 @@ This is our pipeline for the preparation step:
 #Import important library  
 import numpy as np
 import nltk
-# nltk.download('punkt')
 from nltk.stem.porter import PorterStemmer
 stemmer = PorterStemmer()
 
@@ -70,7 +69,6 @@ def stem(word):
 #Bag of words
 def bag_of_words(tokenized_sentence,all_words):
     tokenized_sentence = [stem(w) for w in tokenized_sentence]
-    
     bag = np.zeros(len(all_words),dtype=np.float32)
     for idx, w in enumerate(all_words):
         if w in tokenized_sentence:
@@ -188,75 +186,31 @@ all_words = [stem(w) for w in all_words if w not in ignore_words]
 # remove duplicates and sort
 all_words = sorted(set(all_words))
 tags = sorted(set(tags))
+
+
+# create training data
+X_train = []
+y_train = []
+for (pattern_sentence, tag) in xy:
+    # X: bag of words for each pattern_sentence
+    bag = bag_of_words(pattern_sentence, all_words)
+    X_train.append(bag)
+    # y: PyTorch CrossEntropyLoss needs only class labels, not one-hot
+    label = tags.index(tag)
+    y_train.append(label)
+
+X_train = np.array(X_train)
+y_train = np.array(y_train)
 ```
 
 ### Pytorch model
-Whatever you prefer (e.g. `conda` or `venv`)
-```console
-mkdir myproject
-$ cd myproject
-$ python3 -m venv venv![Bag of word](https://user-images.githubusercontent.com/30191617/117074141-936a0d80-acf8-11eb-84b0-dcc819148e82.png)
+After completing the training part, we move to next part is create Pytorch model. 
 
-```
+First of all, lets go through neural network basics to see how it works.
+
+A neural network is simply a group of interconnected neurons that are able to influence each other’s behavior. As the image below, our input would be the vector, it would go through multiple of layer and output would be couple of different classes which we can identify which answer is suitable for the sentence the user provide.
+
+![neural network](https://cdn-images-1.medium.com/max/1600/1*3fA77_mLNiJTSgZFhYnU0Q@2x.png)
 
 ### Save/load model and implement the chat
-Mac / Linux:
-```console
-. venv/bin/activate
-```
-Windows:
-```console
-venv\Scripts\activate
-```
-### Install PyTorch and dependencies
 
-For Installation of PyTorch see [official website](https://pytorch.org/).
-
-You also need `nltk`:
- ```console
-pip install nltk
- ```
-
-If you get an error during the first run, you also need to install `nltk.tokenize.punkt`:
-Run this once in your terminal:
- ```console
-$ python
->>> import nltk
->>> nltk.download('punkt')
-```
-
-## Usage
-Run
-```console
-python train.py
-```
-This will dump `data.pth` file. And then run
-```console
-python chat.py
-```
-## Customize
-Have a look at [intents.json](intents.json). You can customize it according to your own use case. Just define a new `tag`, possible `patterns`, and possible `responses` for the chat bot. You have to re-run the training whenever this file is modified.
-```console
-{
-  "intents": [
-    {
-      "tag": "greeting",
-      "patterns": [
-        "Hi",
-        "Hey",
-        "How are you",
-        "Is anyone there?",
-        "Hello",
-        "Good day"
-      ],
-      "responses": [
-        "Hey :-)",
-        "Hello, thanks for visiting",
-        "Hi there, what can I do for you?",
-        "Hi there, how can I help?"
-      ]
-    },
-    ...
-  ]
-}
-```
