@@ -49,9 +49,18 @@ This is our pipeline for the preparation step:
 
 ## Code
 ```console
+#Import important library  
+import numpy as np
+import nltk
+# nltk.download('punkt')
+from nltk.stem.porter import PorterStemmer
+stemmer = PorterStemmer()
+
+
 #Tokenization
 def tokenize(sentence):
     return nltk.word_tokenize(sentence)
+    
     
 #Stemming
 def stem(word):
@@ -70,8 +79,116 @@ def bag_of_words(tokenized_sentence,all_words):
 ```
 
 ### Create Training data
+In this tutorial we will process json file so we need to crete a file to read and apply the preprocession . Here is a sample Json file.
+```console
+{
+  "intents": [
+    {
+      "tag": "greeting",
+      "patterns": [
+        "Hi",
+        "Hey",
+        "How are you",
+        "Is anyone there?",
+        "Hello",
+        "Good day"
+      ],
+      "responses": [
+        "Hey :-)",
+        "Hello, what do you want to eat today?",
+        "Hi there, what can I do for you?",
+        "Hi there, how can I help?"
+      ]
+    },
+    {
+      "tag": "goodbye",
+      "patterns": ["Bye", "See you later", "Goodbye"],
+      "responses": [
+        "See you later",
+        "Have a good day",
+        "Bye! Enjoy your food"
+      ]
+    },
+    {
+      "tag": "thanks",
+      "patterns": ["Thanks", "Thank you", "That's helpful", "Thank's a lot!"],
+      "responses": ["Happy to help!", "Any time!", "My pleasure"]
+    },
+    {
+      "tag": "feature",
+      "patterns": [
+        "How can you help?",
+        "What is your purpose?",
+        "Tell me about yourself?"
+      ],
+      "responses": [
+        "I recommend food base on your ingridient"
+      ]
+    },
+    {
+      "tag": "beef",
+      "patterns": [
+        "I have beef",
+      ],
+      "responses": [
+        "You can make beef stir fried with mixed of vegetable",
+        "You can make beef deep fried with oyster sauce"
+      ]
+    },
+    {
+      "tag": "funny",
+      "patterns": [
+        "Tell me a joke!",
+        "Tell me something funny!",
+        "Do you know a joke?"
+      ],
+      "responses": [
+        "Why did the hipster burn his mouth? He drank the coffee before it was cool.",
+        "What did the buffalo say when his son left for college? Bison."
+      ]
+    }
+  ]
+}
+```
+In this stage we will try to collect the sentence follow each tag and transform them from sentence to array of string. This one is the most time consuming in the whole process.
+```console
+import numpy as np
+import random
+import json
 
+import torch
+import torch.nn as nn
+from torch.utils.data import Dataset, DataLoader
 
+from nltk_utils import bag_of_words, tokenize, stem
+from model import NeuralNet
+
+with open('intents.json', 'r') as f:
+    intents = json.load(f)
+
+all_words = []
+tags = []
+xy = []
+# loop through each sentence in our intents patterns
+for intent in intents['intents']:
+    tag = intent['tag']
+    # add to tag list
+    tags.append(tag)
+    for pattern in intent['patterns']:
+        # tokenize each word in the sentence
+        w = tokenize(pattern)
+        # add to our words list
+        all_words.extend(w)
+        # add to xy pair
+        xy.append((w, tag))
+
+# stem and lower each word
+ignore_words = ['?', '.', '!']
+all_words = [stem(w) for w in all_words if w not in ignore_words]
+# remove duplicates and sort
+all_words = sorted(set(all_words))
+tags = sorted(set(tags))
+```
 
 ### Pytorch model
 Whatever you prefer (e.g. `conda` or `venv`)
