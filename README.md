@@ -40,7 +40,7 @@ Input contain two sentence "Hello, how are you doing?"(Greeting),"Bye, see you l
 
 All words:["hello","how","are","you","doing","bye","see","late"]
 
-![bag of word](https://github.com/kekhongdau01/Tutorial/blob/main/Bow.png)
+![bag of word](https://www.researchgate.net/profile/William_Wallace/publication/268050206/figure/fig4/AS:669532460970014@1536640386963/Example-of-the-bag-of-word-text-representation-with-the-occurrence-of-word-as-feature.ppm)
 
 This is our pipeline for the preparation step:
 
@@ -149,6 +149,8 @@ In this tutorial we will process json file so we need to crete a file to read an
 }
 ```
 In this stage we will try to collect the sentence follow each tag and transform them from sentence to array of string. This one is the most time consuming in the whole process.
+
+## Code
 ```console
 import numpy as np
 import random
@@ -211,6 +213,32 @@ First of all, lets go through neural network basics to see how it works.
 A neural network is simply a group of interconnected neurons that are able to influence each other’s behavior. As the image below, our input would be the vector, it would go through multiple of layer and output would be couple of different classes which we can identify which answer is suitable for the sentence the user provide.
 
 ![neural network](https://cdn-images-1.medium.com/max/1600/1*3fA77_mLNiJTSgZFhYnU0Q@2x.png)
+
+
+## Code
+```console
+  
+import torch
+import torch.nn as nn
+
+
+class NeuralNet(nn.Module):
+    def __init__(self, input_size, hidden_size, num_classes):
+        super(NeuralNet, self).__init__()
+        self.l1 = nn.Linear(input_size, hidden_size) 
+        self.l2 = nn.Linear(hidden_size, hidden_size) 
+        self.l3 = nn.Linear(hidden_size, num_classes)
+        self.relu = nn.ReLU()
+    
+    def forward(self, x):
+        out = self.l1(x)
+        out = self.relu(out)
+        out = self.l2(out)
+        out = self.relu(out)
+        out = self.l3(out)
+        # no activation and no softmax at the end
+        return out
+```
 
 ### Save/load model and implement the chat
 
